@@ -6,7 +6,7 @@ authors = ["alejandro-ib <alejo1ibarra@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.8"
 djangorestframework = "^3.14.0"
 python-dotenv = "^1.0.0"
 psycopg = "^3.1.9"
