@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 
 import os
 from pathlib import Path
+from datetime import timedelta
 
 
 load_dotenv()
@@ -24,6 +25,9 @@ LOCAL_APPS = [
 
 THIRD_PARTY_APPS = [
     "simple_history",
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "drf_spectacular",
 ]
     
 DJANGO_APPS = [
@@ -48,6 +52,30 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Social Hive API',
+    'DESCRIPTION': 'API for Social Hive',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=15),
+}
+
+AUTH_USER_MODEL = "common.HiveUser"
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
 TEMPLATES = [
     {
@@ -77,8 +105,6 @@ DATABASES = {
         'PORT': os.getenv('RDS_PORT'),
     }
 }
-
-AUTH_USER_MODEL = "common.HiveUser"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
