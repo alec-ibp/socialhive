@@ -34,13 +34,18 @@ class CustomHiveUserManager(BaseUserManager):
 
 
 class HiveUser(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=50)
+    class UserRole(models.IntegerChoices):
+        ADMIN = 1
+        USER = 2
+
+    username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=50, unique=True)
     password = models.CharField(max_length=265)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    role = models.IntegerField(choices=UserRole.choices, default=UserRole.USER)
 
     history = HistoricalRecords()
 
