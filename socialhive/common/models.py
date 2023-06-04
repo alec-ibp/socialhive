@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 from simple_history.models import HistoricalRecords
@@ -40,7 +41,7 @@ class HiveUser(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=50, unique=True)
-    password = models.CharField(max_length=265)
+    password = models.CharField(validators=[MinLengthValidator(8), MaxLengthValidator(265)], max_length=265)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
