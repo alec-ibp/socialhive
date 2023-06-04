@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.exceptions import ValidationError
 from drf_spectacular.utils import extend_schema
 
 from .pagination import CustomPagination
@@ -44,7 +45,7 @@ class HiveUserViewSet(CustomModelViewSet):
 
     @extend_schema(
         request=ChangePasswordSerializer,
-        responses={status.HTTP_201_CREATED: None},
+        responses={status.HTTP_200_OK: None},
     )
     def change_password(self, request: Request, *args, **kwargs) -> Response:
         serializer = ChangePasswordSerializer(data=request.data)
@@ -54,12 +55,23 @@ class HiveUserViewSet(CustomModelViewSet):
         new_password = serializer.validated_data["new_password"]
         new_password_confirmation = serializer.validated_data["new_password_confirmation"]
 
-        # TODO improve robustness and manage apu exceptions, validate that the old pass really matches
+        user = request.user
+        
+        coincidences: int = 0
+        password_length: int = min(len(new_password), len(old_password))
+        for i in range(password_length):
+            if old_password[i].lower() == new_password[i].lower():
+                coincidences += 1
+
+        if not user.check_password(old_password):
+            raise ValidationError("Old password is incorrect.")
         if new_password != new_password_confirmation:
-            raise Exception("New password and confirmation don't match.")
+            raise ValidationError("New password and confirmation don't match.")
         if old_password.lower() == new_password.lower():
-            raise Exception("New password can't be the same as the old one.")
+            raise ValidationError("New password can't be the same as the old one.")
+        if coincidences >= password_length // 2:
+            raise ValidationError("New password can't be too similar to the old one.")
 
         UserServiceManager(UserServiceRespository()).change_password(request.user, new_password)
 
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_200_OK)
