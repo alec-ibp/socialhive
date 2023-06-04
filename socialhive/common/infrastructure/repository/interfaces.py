@@ -24,3 +24,7 @@ class UserServiceAbstractRepository(ABC):
     @abstractmethod
     def delete_user(self, user_id: int) -> None:
         pass
+
+    @abstractmethod
+    def update_password(self, user: HiveUser, new_password: str) -> None:
+        pass

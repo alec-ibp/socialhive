@@ -22,3 +22,7 @@ class UserServiceRespository(UserServiceAbstractRepository):
 
     def delete_user(self, user_id: int) -> None:
         pass
+
+    def update_password(self, user: HiveUser, new_password: str) -> None:
+        user.set_password(new_password)
+        user.save()

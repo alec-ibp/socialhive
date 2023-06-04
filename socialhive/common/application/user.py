@@ -12,3 +12,6 @@ class UserServiceManager:
     def create_user(self, user_dto: UserRegisterDTO) -> HiveUser:
         user_dto.password = make_password(user_dto.password)
         return self.repository.create_user(user_dto)
+    
+    def change_password(self, current_user: HiveUser, new_password: str) -> None:
+        self.repository.update_password(current_user, new_password)
