@@ -41,10 +41,10 @@ jobs:
     - name: Run Tests
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        RDS_DATABASE:'postgres'
-        RDS_USER:'postgres'
-        RDS_PASSWORD:'postgres'
-        RDS_HOST:'localhost'
-        RDS_PORT:'5432'
+        RDS_DATABASE: 'postgres'
+        RDS_USER: 'postgres'
+        RDS_PASSWORD: 'postgres'
+        RDS_HOST: 'localhost'
+        RDS_PORT: '5432'
       run: |
         pytest -vv 
