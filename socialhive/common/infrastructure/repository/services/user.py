@@ -3,7 +3,7 @@ from socialhive.common.dtos import UserRegisterDTO
 from ..interfaces import UserServiceAbstractRepository
 
 
-class UserServiceRespository(UserServiceAbstractRepository):
+class UserServiceRepository(UserServiceAbstractRepository):
     def create_user(self, user_dto: UserRegisterDTO) -> HiveUser:
         return HiveUser.objects.create(
             username=user_dto.username,

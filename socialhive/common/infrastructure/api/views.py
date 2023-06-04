@@ -10,7 +10,7 @@ from .pagination import CustomPagination
 from .serializers import HiveUserSerializer, ChangePasswordSerializer
 from socialhive.common.dtos import UserRegisterDTO
 from socialhive.common.application.user import UserServiceManager
-from socialhive.common.infrastructure.repository import UserServiceRespository
+from socialhive.common.infrastructure.repository import UserServiceRepository
 
 
 class CustomModelViewSet(ModelViewSet):
@@ -39,7 +39,7 @@ class HiveUserViewSet(CustomModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user_dto = UserRegisterDTO(**serializer.validated_data)
-        user = UserServiceManager(UserServiceRespository()).create_user(user_dto)
+        user = UserServiceManager(UserServiceRepository()).create_user(user_dto)
         serialized_user = self.get_serializer(user)
         return Response(serialized_user.data, status=status.HTTP_201_CREATED)
 
@@ -72,6 +72,6 @@ class HiveUserViewSet(CustomModelViewSet):
         if coincidences >= password_length // 2:
             raise ValidationError("New password can't be too similar to the old one.")
 
-        UserServiceManager(UserServiceRespository()).change_password(request.user, new_password)
+        UserServiceManager(UserServiceRepository()).change_password(request.user, new_password)
 
         return Response(status=status.HTTP_200_OK)

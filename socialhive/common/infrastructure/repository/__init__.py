@@ -1,2 +1,2 @@
 from socialhive.common.infrastructure.repository.interfaces import UserServiceAbstractRepository
-from socialhive.common.infrastructure.repository.services.user import UserServiceRespository
+from socialhive.common.infrastructure.repository.services.user import UserServiceRepository
