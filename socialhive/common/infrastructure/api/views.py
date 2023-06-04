@@ -4,7 +4,9 @@ from rest_framework.viewsets import ModelViewSet
 
 from .pagination import CustomPagination
 from .serializers import HiveUserSerializer
-from socialhive.common.infrastructure.db.services.user import create_new_user
+from socialhive.common.dtos import UserRegisterDTO
+from socialhive.common.application.user import UserServiceManager
+from socialhive.common.infrastructure.repository import UserServiceRespository
 
 
 class CustomModelViewSet(ModelViewSet):
@@ -18,6 +20,11 @@ class CustomModelViewSet(ModelViewSet):
 class HiveUserViewSet(CustomModelViewSet):
     serializer_class = HiveUserSerializer
 
+    def get_permissions(self):
+        if self.action == 'create':
+            return []
+        return super().get_permissions()
+
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)
     
@@ -27,6 +34,7 @@ class HiveUserViewSet(CustomModelViewSet):
     def create(self, request: Request, *args, **kwargs) -> Response:
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = create_new_user(**serializer.validated_data)
+        user_dto = UserRegisterDTO(**serializer.validated_data)
+        user = UserServiceManager(UserServiceRespository()).create_user(user_dto)
         serialized_user = self.get_serializer(user)
         return Response(serialized_user.data, status=201)
