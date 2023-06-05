@@ -14,6 +14,9 @@ class BaseCustomException(APIException):
         self.status_code = status_code
 
 
+class DataValidationError(ValidationError):
+    pass
+
 def custom_exception_handler(exc, context) -> Response | None:
     if isinstance(exc, ValidationError):
         exc = BaseCustomException(detail=exc.detail, status_code=exc.status_code, exc=exc)

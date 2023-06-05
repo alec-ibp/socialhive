@@ -1,4 +1,3 @@
-# type: ignore
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -50,28 +49,5 @@ class HiveUserViewSet(CustomModelViewSet):
     def change_password(self, request: Request, *args, **kwargs) -> Response:
         serializer = ChangePasswordSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        
-        old_password = serializer.validated_data["old_password"]
-        new_password = serializer.validated_data["new_password"]
-        new_password_confirmation = serializer.validated_data["new_password_confirmation"]
-
-        user = request.user
-        
-        coincidences: int = 0
-        password_length: int = min(len(new_password), len(old_password))
-        for i in range(password_length):
-            if old_password[i].lower() == new_password[i].lower():
-                coincidences += 1
-
-        if not user.check_password(old_password):
-            raise ValidationError("Old password is incorrect.")
-        if new_password != new_password_confirmation:
-            raise ValidationError("New password and confirmation don't match.")
-        if old_password.lower() == new_password.lower():
-            raise ValidationError("New password can't be the same as the old one.")
-        if coincidences >= password_length // 2:
-            raise ValidationError("New password can't be too similar to the old one.")
-
-        UserServiceManager(UserServiceRepository()).change_password(request.user, new_password)
-
+        UserServiceManager(UserServiceRepository()).change_password(request.user, **serializer.validated_data)
         return Response(status=status.HTTP_200_OK)
