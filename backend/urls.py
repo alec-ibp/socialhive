@@ -7,24 +7,24 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 docs_urls = [
     # Optional UI:
-    path('schema/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    path('schema/file', SpectacularAPIView.as_view(), name='schema'),
+    path("schema/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+    path("schema/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    path("schema/file", SpectacularAPIView.as_view(), name="schema"),
 ]
 
 urls_jwttoken = [
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token-refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token-refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
 app_urls = [
-    path('', include('socialhive.common.urls')),
-    path('', include('socialhive.feed.urls')),
+    path("", include("socialhive.common.urls")),
+    path("", include("socialhive.feed.urls")),
 ]
 
 urlpatterns = [
-    path('', include(urls_jwttoken)),
-    path('admin/', admin.site.urls),
-    path('docs/', include(docs_urls)),
-    path('api/v1/', include(app_urls)),
+    path("", include(urls_jwttoken)),
+    path("admin/", admin.site.urls),
+    path("docs/", include(docs_urls)),
+    path("api/v1/", include(app_urls)),
 ]
