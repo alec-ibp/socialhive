@@ -17,13 +17,14 @@ urls_jwttoken = [
     path('token-refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
-common_urls = [
+app_urls = [
     path('', include('socialhive.common.urls')),
+    path('', include('socialhive.feed.urls')),
 ]
 
 urlpatterns = [
     path('', include(urls_jwttoken)),
     path('admin/', admin.site.urls),
     path('docs/', include(docs_urls)),
-    path('api/v1/', include(common_urls)),
+    path('api/v1/', include(app_urls)),
 ]

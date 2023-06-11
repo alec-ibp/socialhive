@@ -21,6 +21,7 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS','').split(',')
 # Application definition
 LOCAL_APPS = [
     "socialhive.common",
+    "socialhive.feed",
 ]
 
 THIRD_PARTY_APPS = [
