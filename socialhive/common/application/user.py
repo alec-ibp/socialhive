@@ -27,7 +27,7 @@ class UserServiceManager:
             raise DataValidationError("New password and confirmation don't match.")
         if old_password.lower() == new_password.lower():
             raise DataValidationError("New password can't be the same as the old one.")
-        if coincidences >= password_length // 2:
+        if coincidences >= password_length // 2 or old_password in new_password or new_password in old_password:
             raise DataValidationError("New password can't be too similar to the old one.")
 
         self.repository.update_password(current_user, new_password)
