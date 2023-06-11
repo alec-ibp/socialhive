@@ -33,6 +33,9 @@ class FakeUserServiceRepository:
     def create_user(self, user_dto: UserRegisterDTO) -> HiveUser:
         return HiveUser(username=user_dto.username, email=user_dto.email, password=user_dto.password)
 
+    def update_password(self, user: HiveUser, new_password: str) -> None:
+        user.set_password(new_password)
+
 
 @pytest.fixture
 def fake_repository():
