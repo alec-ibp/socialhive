@@ -1,6 +1,8 @@
 import pytest
 from rest_framework.test import APIClient
 
+from socialhive.common.models import HiveUser
+from socialhive.common.dtos import UserRegisterDTO
 from socialhive.common.tests.factories import UserFactory
 
 
@@ -25,3 +27,14 @@ class TestBase:
     def setup(self, get_session):
         self.api_client, self.user = get_session
         return api_client, user
+
+
+class FakeUserServiceRepository:
+    def create_user(self, user_dto: UserRegisterDTO) -> HiveUser:
+        return HiveUser(username=user_dto.username, email=user_dto.email, password=user_dto.password)
+
+
+@pytest.fixture
+def fake_repository():
+    return FakeUserServiceRepository()
+    
