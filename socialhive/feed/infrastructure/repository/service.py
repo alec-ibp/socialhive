@@ -1,4 +1,4 @@
-from socialhive.feed.domain.models import  Post
+from socialhive.feed.domain.models import Post
 from socialhive.feed.domain.dtos import NewPostDTO
 from socialhive.feed.domain.interfaces import PostServiceRepositoryInterface
 

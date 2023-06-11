@@ -4,7 +4,12 @@ from socialhive.common.utils.validators import alphanumeric_with_special_charact
 
 
 class Post(models.Model):
-    content = models.CharField(max_length=200, null=False, blank=False, validators=[alphanumeric_with_special_characters], help_text="Post content")
+    content = models.CharField(
+        max_length=200,
+        null=False, blank=False,
+        validators=[alphanumeric_with_special_characters],
+        help_text="Post content"
+    )
     url = models.CharField(max_length=200, null=True, blank=True)
     image_path = models.CharField(max_length=200, null=True, blank=True)
     published = models.DateTimeField(auto_now_add=True)

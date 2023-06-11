@@ -8,7 +8,7 @@ from .pagination import CustomPagination
 from .serializers import HiveUserSerializer, ChangePasswordSerializer
 from socialhive.common.dtos import UserRegisterDTO
 from socialhive.common.application.user import UserServiceManager
-from socialhive.common.infrastructure.repository import UserServiceRepository
+from socialhive.common.infrastructure.repository.services.user import UserServiceRepository
 
 
 class CustomModelViewSet(ModelViewSet):
@@ -29,10 +29,10 @@ class HiveUserViewSet(CustomModelViewSet):
 
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)
-    
+
     def list(self, request: Request, *args, **kwargs) -> Response:
         return super().list(request, *args, **kwargs)
-    
+
     def create(self, request: Request, *args, **kwargs) -> Response:
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)

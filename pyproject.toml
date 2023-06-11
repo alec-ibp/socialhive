@@ -6,7 +6,7 @@ authors = ["alejandro-ib <alejo1ibarra@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.8.1"
 djangorestframework = "^3.13.0"
 python-dotenv = "^1.0.0"
 psycopg = "^3.1.9"
@@ -14,6 +14,7 @@ django-simple-history = "^3.3.0"
 djangorestframework-simplejwt = "^5.2.2"
 psycopg2-binary = "^2.9.6"
 boto3 = "^1.26.146"
+black = "^23.3.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -21,6 +22,7 @@ drf-spectacular = "^0.26.2"
 pytest = "^7.3.1"
 factory-boy = "^3.2.1"
 pytest-django = "^4.5.2"
+flake8 = "^6.0.0"
 
 [build-system]
 requires = ["poetry-core"]

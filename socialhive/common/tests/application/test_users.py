@@ -89,4 +89,4 @@ class TestUserApplicationManager:
             new_password_confirmation=new_password_confirmation,
         )
         assert current_user.check_password(new_password)
-        assert current_user.check_password("current_password") == False
+        assert not current_user.check_password("current_password")

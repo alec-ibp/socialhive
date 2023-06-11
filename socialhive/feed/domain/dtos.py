@@ -3,7 +3,7 @@ from socialhive.common.models import HiveUser
 
 
 class NewPostDTO:
-    def __init__(self, content: str, user: HiveUser, url: Optional[str]=None, image_path: Optional[str]=None):
+    def __init__(self, content: str, user: HiveUser, url: Optional[str] = None, image_path: Optional[str] = None):
         self.content = content
         self.url = url or None
         self.image_path = image_path or None
@@ -16,4 +16,3 @@ class NewPostDTO:
             'image_path': self.image_path,
             'user': self.user
         }
-

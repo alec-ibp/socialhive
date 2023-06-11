@@ -40,4 +40,3 @@ class FakeUserServiceRepository:
 @pytest.fixture
 def fake_repository():
     return FakeUserServiceRepository()
-    

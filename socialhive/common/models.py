@@ -6,7 +6,7 @@ from simple_history.models import HistoricalRecords
 
 
 class CustomHiveUserManager(BaseUserManager):
-    def _create_user(self, email: str, username: str, password:str, **kwargs) -> 'HiveUser':
+    def _create_user(self, email: str, username: str, password: str, **kwargs) -> 'HiveUser':
         if not email:
             raise ValueError('Email is required')
         if not username:
@@ -25,7 +25,7 @@ class CustomHiveUserManager(BaseUserManager):
         kwargs.setdefault("is_staff", False)
         kwargs.setdefault("is_superuser", False)
         return self._create_user(email=email, username=username, password=password, **kwargs)
-    
+
     def create_super_user(self, email: str, password: str, **kwargs) -> 'HiveUser':
         kwargs.setdefault("is_staff", True)
         kwargs.setdefault("is_superuser", True)

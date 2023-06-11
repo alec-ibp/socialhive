@@ -1,4 +1,4 @@
-from rest_framework import serializers 
+from rest_framework import serializers
 
 from socialhive.common.models import HiveUser
 
@@ -22,6 +22,7 @@ class HiveUserSerializer(serializers.ModelSerializer):
             "is_staff": instance.is_staff,
             "role": instance.role,
         }
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
