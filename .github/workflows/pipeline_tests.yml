@@ -41,7 +41,7 @@ jobs:
     - name: Check code format
       run: |
         black --check socialhive/ --include pyproject.toml
-        flakes8 socialhive/
+        flake8 socialhive/
     - name: Run Tests
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
