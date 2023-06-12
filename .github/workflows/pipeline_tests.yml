@@ -40,7 +40,7 @@ jobs:
         pip install -r requirements.txt
     - name: Check code format
       run: |
-        black --check socialhive/
+        black --check socialhive/ --include pyproject.toml
     - name: Run Tests
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
