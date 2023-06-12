@@ -38,6 +38,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Check code format
+      run: |
+        black --check socialhive/
     - name: Run Tests
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
