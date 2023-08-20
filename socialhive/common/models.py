@@ -13,7 +13,7 @@ class CustomHiveUserManager(BaseUserManager):
             raise ValueError('username is required')
 
         user = self.model(
-            self.normalize_email(email),
+            email=self.normalize_email(email),
             username=username,
             **kwargs
         )
@@ -26,7 +26,7 @@ class CustomHiveUserManager(BaseUserManager):
         kwargs.setdefault("is_superuser", False)
         return self._create_user(email=email, username=username, password=password, **kwargs)
 
-    def create_super_user(self, email: str, password: str, **kwargs) -> 'HiveUser':
+    def create_superuser(self, email: str, password: str, **kwargs) -> 'HiveUser':
         kwargs.setdefault("is_staff", True)
         kwargs.setdefault("is_superuser", True)
         user = self._create_user(email=email, password=password, **kwargs)
