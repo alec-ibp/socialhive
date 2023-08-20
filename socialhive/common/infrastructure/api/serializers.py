@@ -3,14 +3,13 @@ from rest_framework import serializers
 from socialhive.common.models import HiveUser
 
 
-class HiveUserSerializer(serializers.ModelSerializer):
+class HiveUserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = HiveUser
         fields = (
             "username",
             "email",
             "password",
-            "is_active",
         )
 
     def to_representation(self, instance: HiveUser) -> dict:
@@ -22,6 +21,17 @@ class HiveUserSerializer(serializers.ModelSerializer):
             "is_staff": instance.is_staff,
             "role": instance.role,
         }
+
+
+class HiveUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HiveUser
+        exclude = (
+            "email",
+            "password",
+            "is_staff",
+            "role",
+        )
 
 
 class ChangePasswordSerializer(serializers.Serializer):
