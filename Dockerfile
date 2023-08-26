@@ -63,3 +63,5 @@ COPY . /code/
 
 # use the unprivileged user
 USER app
+
+EXPOSE 8000
