@@ -56,7 +56,7 @@ COPY --from=builder /code/wheels /wheels
 COPY --from=builder /code/requirements.txt /code/requirements.txt
 
 # install project dependencies
-RUN pip install --no-cache /wheels/*
+RUN pip install --no-cache-dir /wheels/*
 
 # Copy source code
 COPY . /code/
